@@ -1,4 +1,4 @@
-# Llama 2 70B Training for Student Cluster Competition 2026
+# Llama 2 70B LoRA Training for Super Computing 2026: Student Cluster Competition
 ## Introduction
 This guide is designed for the Student Cluster Competition to walk participants through running and optimizing the MLPerf Training Benchmark using Llama 2 70B (LoRA Fine-Tuning) across various software and cluster hardware configurations. The goal is to minimize `Time-to-Train (TTT = run_stop - run_start)` while achieving the targeted convergence accuracy.
 The benchmark task fine-tunes LLaMA 2 70B on the SCROLLS dataset (question-summary pairs from official government research reports) using Low-Rank Adaptation (LoRA), which optimizes rank decomposition matrices while keeping pre-trained weights frozen. Leads for this track are Miro Hodak (MLCommons/AMD) and Shriya Rishab (MLCommons/Nvidia).
