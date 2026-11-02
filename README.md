@@ -7,6 +7,23 @@ The benchmark task fine-tunes LLaMA 2 70B on the SCROLLS dataset (question-summa
 In the SCC, your primary objective is to produce a compliant, fully verified MLPerf training submission. Teams will compete across three main scoring dimensions: Absolute Performance (lowest TTT), Relative Performance (efficient scaling given hardware capacity), and Technical Innovations (creative distributed optimizations).
 To receive full credit, teams must complete exactly 10 genuine runs with distinct seeds. Scores are computed as the mean of the middle 8 runs using Olympic trimming (discarding the fastest and slowest runs). Up to 1 failed run is permitted.
 
+## Dataset and Starting Checkpoint
+Copy the commands below and run it in your terminal to download the dataset and the starting checkpoint. The downloader works on Linux, macOS, and Windows (WSL/Cygwin).
+
+For more information about the MLC R2 Downloader, the container image, and usage, please see the [README](https://github.com/mlcommons/r2-downloader/blob/main/README.md) on GitHub.
+
+```
+# Preprocessed Scrolls Gov Report 8k dataset (SCC 2026 temporary copy) (~112MB)
+bash <(curl -s https://raw.githubusercontent.com/mlcommons/r2-downloader/refs/heads/main/mlc-r2-downloader.sh) https://training.mlcommons-storage.org/metadata/scc-2026-scrolls-gov-report-8k.uri
+```
+
+```
+# Llama 2 70B parameter fused QKV MLPerf model (SCC 2026 temporary copy) (~276GB)
+bash <(curl -s https://raw.githubusercontent.com/mlcommons/r2-downloader/refs/heads/main/mlc-r2-downloader.sh) https://training.mlcommons-storage.org/metadata/scc-2026-llama-2-70b-fused-qkv-mlperf.uri
+```
+
+
+
 ## Convergence Requirements and RCP Rules
 Every run must reach the quality target of `validation loss <= 0.925 (logged under MLLOG key eval_accuracy)`. Evaluations are conducted every `384 sequences (or CEIL(384 / GBS) * GBS steps if 384 is not divisible by GBS)`, skipping the initial `FLOOR(0.125 * GBS + 2)` evaluation checks.
 All runs are subject to Reference Convergence Points (RCPs) defined in [rcps_llama2_70b_lora.json](https://github.com/mlcommons/logging/blob/master/mlperf_logging/rcp_checker/training_6.0.0/rcps_llama2_70b_lora.json). Normalization rules apply: implausibly fast runs fail the benchmark entirely, credibly fast runs are scaled up, and slow runs receive no downward adjustment.
